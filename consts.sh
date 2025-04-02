@@ -3,7 +3,7 @@
 # @describe: Customizable universal constants to use in ez commands
 
 # TODO: remove my values
-GIT_DIR="$HOME/code"
+GIT_DIR="$HOME"
 GIT_USERNAME=""
 
 REPOS=(
