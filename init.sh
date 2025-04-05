@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-# @describe: used to include all necessary files for plugin
+# @describe Sources all necessary files for plugin
 
 source ${0:A:h}/consts.sh
 source ${0:A:h}/utils.sh

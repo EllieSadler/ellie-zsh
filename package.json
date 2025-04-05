@@ -1,0 +1,12 @@
+{
+  "name": "ellie-zsh",
+  "description": "A collection of Zsh commands to help engineers.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Ellie Sadler",
+    "email": "me@elliesadler.com",
+    "url": "https://www.elliesadler.com"
+  },
+  "license": "MIT",
+  "main": "init.sh"
+}
