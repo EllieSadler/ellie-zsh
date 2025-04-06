@@ -72,6 +72,14 @@ function _success() {
   _add_space
 }
 
+# @func Prints the passed processing message in italics, prepended by a processing icon, appended by ellipses, and empty lines before and after
+# @arg <message> Processing message to print
+function _processing() {
+  _add_space
+  _msg "🔄 ${ITALIC}$1...${STOP_ITALIC}"
+  _add_space
+}
+
 # @func Prints the passed warning message prepended by a warning icon and empty lines before and after
 # @arg <message> Warning message to print
 function _warn() {
