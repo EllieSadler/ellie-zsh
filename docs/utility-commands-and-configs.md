@@ -5,30 +5,31 @@ This document contains some utility commands and configs that can be helpful for
 > #### Table of Contents
 > 
 > - **`.zshrc` functions**
->   - [Open .zshrc in code editor](TODO:add-link) — `edit-zsh`
->   - [Apply .zshrc changes](TODO:add-link) — `reload`
+>   - [Open .zshrc in code editor](#open-zshrc-file-in-code-editor--edit-zsh) — `edit-zsh`
+>   - [Apply .zshrc changes](#apply-zshrc-changes--ez-reload) — `ez-reload`
 > - **Output-related functions**
->   - [Print styles and formatting](TODO:add-link)
->   - [Add space between outputs](TODO:add-link) —` _add_space`
->   - [Add horizontal line that spans entire window](TODO:add-link) — `_divider`
->   - [Print message](TODO:add-link) — `_msg`
->   - [Print alert](TODO:add-link) — `_alert`
->   - [Print error](TODO:add-link) — `_error`
->   - [Print success](TODO:add-link) — `_success`
->   - [Print processing](TODO:add-link) — `_processing`
->   - [Ask question](TODO:add-link) — `_question`
+>   - [Print styles and formatting](#print-styles-and-formatting)
+>   - [Add space between outputs](#add-space-between-outputs--_add_space) —` _add_space`
+>   - [Add horizontal line that spans entire window](#add-horizontal-line-that-spans-entire-window--_divider) — `_divider`
+>   - [Print message](#print-a-message--_msg) — `_msg`
+>   - [Print error](#templated-messages--_error-_success-_processing-_warn-_alert) — `_error`
+>   - [Print success](#templated-messages--_error-_success-_processing-_warn-_alert) — `_success`
+>   - [Print processing](#templated-messages--_error-_success-_processing-_warn-_alert) — `_processing`
+>   - [Print warning](#templated-messages--_error-_success-_processing-_warn-_alert) — `_warn`
+>   - [Print alert](#templated-messages--_error-_success-_processing-_warn-_alert) — `_alert`
+>   - [Ask question](#ask-a-question--_question) — `_question`
 > - **Get/check value functions**
->   - [Get current git branch](TODO:add-link) — `_get_current_branch`
->   - [Check if a branch exists locally](TODO:add-link) — `_is_branch_local`
->   - [Check if a branch exists remotely](TODO:add-link) — `_is_branch_remote`
->   - [Check if local branch is up-to-date with remote](TODO:add-link) — `_is_branch_up_to_date`
->   - [Check if there are uncommitted changes](TODO:add-link) — `_has_uncommitted_changes`
->   - [Check if there are unstaged changes](TODO:add-link) — `_has_unstaged_changes`
->   - [Check if a flag has an argument](TODO:add-link) — `_has_flag_arg`
->   - [Get an argument for a flag](TODO:add-link) — `_get_flag_arg`
+>   - [Get current git branch](#get-current-git-branch--_get_current_branch) — `_get_current_branch`
+>   - [Check if a branch exists locally](#check-if-a-branch-exists-locally--_is_branch_local) — `_is_branch_local`
+>   - [Check if a branch exists remotely](#check-if-a-branch-exists-remotely--_is_branch_remote) — `_is_branch_remote`
+>   - [Check if local branch is up-to-date with remote](#check-if-local-branch-is-up-to-date-with-remote--_is_branch_up_to_date) — `_is_branch_up_to_date`
+>   - [Check if there are uncommitted changes](#check-if-there-are-uncommitted-changes--_has_uncommitted_changes) — `_has_uncommitted_changes`
+>   - [Check if there are unstaged changes](#check-if-there-are-unstaged-changes--_has_unstaged_changes) — `_has_unstaged_changes`
+>   - [Check if a flag has an argument](#check-if-a-flag-has-an-argument--_has_flag_arg) — `_has_flag_arg`
+>   - [Get an argument for a flag](#get-an-argument-for-a-flag--_get_flag_arg) — `_get_flag_arg`
 > - **Miscellaneous**
->   - [Change directory to specific repository](TODO:add-link) — `ez`
->   - [Run commands on multiple repositories](TODO:add-link) — `ez-batch`
+>   - [Change directory to specific repository](#change-directory-to-specific-repository--ez) — `ez`
+>   - [Run commands on multiple repositories](#run-commands-on-multiple-brands--ez-batch) — `ez-batch`
 
 ## Open `.zshrc` file in code editor — `edit-zsh`
 
@@ -108,7 +109,7 @@ Specify the main message to insert into that command's existing message.
 `_alert "Basic alert message."`
 🔼 Basic alert message.
 
-## Ask a question — `_question`
+### Ask a question — `_question`
 
 ```
 _question <message> [-y|--yes-no] [-d|--default <default>] [-o|--options <options>]

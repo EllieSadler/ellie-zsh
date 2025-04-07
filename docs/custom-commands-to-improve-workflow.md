@@ -2,14 +2,14 @@
 
 > #### Table of Contents
 > 
-> 1. [Run commands on multiple repositories](#run-commands-on-multiple-repositories) — `ez-batch`
-> 2. [Switch branches (or create new branch)](#switch-branches-or-create-new-branch) — `ez-branch`
-> 3. [Run through the full merge flow](#run-through-full-merge-flow) — `ez-merge`
-> 4. [Run through commit process](#run-through-commit-process) — `ez-commit`
-> 5. [Run through push process](#run-through-push-process) — `ez-push`
-> 6. [Open pull request link](#open-pull-request-link) — `ez-pr`
-> 7. [Run through commit, push, and pull request processes](#run-through-commit-push-and-pull-request-processes) — `ez-super-duper`
-> 8. [Switch between ticket/update workflows](#switch-between-ticket-update-workflows) — `ez-ticket`
+> 1. [Run commands on multiple repositories](#1-run-commands-on-multiple-repositories--ez-batch) — `ez-batch`
+> 2. [Switch branches (or create new branch)](#2-switch-branches-or-create-new-branch--ez-branch) — `ez-branch`
+> 3. [Run through the full merge flow](#3-run-through-the-full-merge-flow--ez-merge) — `ez-merge`
+> 4. [Run through commit process](#4-run-through-commit-process--ez-commit) — `ez-commit`
+> 5. [Run through push process](#5-run-through-push-process--ez-push) — `ez-push`
+> 6. [Open pull request link](#6-open-pull-request-link--ez-pr) — `ez-pr`
+> 7. [Run through commit, push, and pull request processes](#7-run-through-commit-push-and-pull-request-processes--ez-super-duper) — `ez-super-duper`
+> 8. [Switch between ticket/update workflows](#8-switch-between-ticketupdate-workflows--ez-ticket) — `ez-ticket`
 
 ## 1. Run commands on multiple repositories — `ez-batch`
 
@@ -125,7 +125,7 @@ There is one configuration option inside this function that you can update depen
 
 A string that defines your GitHub username. If present and not empty, this updates the URL when choosing to view existing pull requests; it will result in a URL for all of your open pull requests for that repository.
 
-## 7. Run through commit, push, and pull request processes` — `ez-super-duper`
+## 7. Run through commit, push, and pull request processes — `ez-super-duper`
 
 This command is used to run the above commands to commit, push, and open a pull request link. By default, it skips the checks on `ez-push` since you will have previously verified you’re on the correct branch and plan to go through with the push process since you’re running this command. It also passes the parent branch name to the `ez-pr` command if it’s passed to this command.
 

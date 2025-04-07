@@ -6,22 +6,22 @@ For additional resources, you can check out this [Zsh cheatsheet](https://gist.g
 
 > #### **Table of Contents**
 > 
-> 1. [Open a URL in a browser](#open-a-url-in-a-browser)
-> 2. [Modify text styling](#modify-text-styling)
-> 3. [Make text bold](#make-text-bold)
-> 4. [Underline text](#underline-text)
-> 5. [Add color to text](#add-color-to-text)
-> 6. [Create local variable and update](#create-local-variable-and-update)
-> 7. [Get input value](#get-input-value)
-> 8. [Get input value (alt)](#get-input-value-alt)
-> 9. [Get input value (alt) 2](#get-input-value-alt-2)
-> 10. [Get y/n response](#get-y-n-response)
-> 11. [Get y/n response as part of if statement](#get-y-n-response-as-part-of-if-statement)
-> 12. [Check for y/n response with colored text](#check-for-y-n-response-with-colored-text)
-> 13. [Check if value is defined and not empty](#check-if-value-is-defined-and-not-empty)
-> 14. [Check if value is not defined or empty](#check-if-value-is-not-defined-or-empty)
-> 15. [Create a select menu](#create-a-select-menu)
-> 16. [Pass and receive flagged arguments](#pass-and-receive-flagged-arguments)
+> 1. [Open a URL in a browser](#1-open-a-url-in-a-browser)
+> 2. [Modify text styling](#2-modify-text-styling)
+> 3. [Make text bold](#3-make-text-bold)
+> 4. [Underline text](#4-underline-text)
+> 5. [Add color to text](#5-add-color-to-text)
+> 6. [Create local variable and update](#6-create-local-variable-and-update)
+> 7. [Get input value](#7-get-input-value)
+> 8. [Get input value (alt)](#8-get-input-value-alt)
+> 9. [Get input value (alt) 2](#9-get-input-value-alt-2)
+> 10. [Get y/n response](#10-get-yn-response)
+> 11. [Get y/n response as part of if statement](#11-get-yn-response-as-part-of-if-statement)
+> 12. [Check for y/n response with colored text](#12-check-for-yn-response-with-colored-text)
+> 13. [Check if value is defined and not empty](#13-check-if-value-is-defined-and-not-empty)
+> 14. [Check if value is not defined or empty](#14-check-if-value-is-not-defined-or-empty)
+> 15. [Create a select menu](#15-create-a-select-menu)
+> 16. [Pass and receive flagged arguments](#16-pass-and-receive-flagged-arguments)
 
 ## 1. Open a URL in a browser
 
