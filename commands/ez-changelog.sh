@@ -50,10 +50,6 @@ $message
 
   git add CHANGELOG.md
 
-  # TODO: see if we can automate version change in package.json
   _warn "Update the version number in ${ORANGE}package.json${STOP_COLOR} to ${ORANGE}$version${STOP_COLOR}."
   code package.json
-
-  # TODO: add question for waiting while you update package.json, then:
-  # git add package.json
 }

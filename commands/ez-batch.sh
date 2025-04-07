@@ -6,7 +6,7 @@
 function ez-batch() {
   local repos=$DEFAULT_REPOS
   local commands=""
-  local verify=true # TODO: do we want to do something different for this?
+  local verify=true
 
   while [ $# -gt 0 ]; do
     case $1 in

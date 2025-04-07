@@ -139,9 +139,7 @@ fi
 
 ## 15. Create a select menu
 
-[This article](TODO:add-link) has a helpful breakdown on how to create a select menu and the different options available, but below is an example of what you will likely use the most.
-
-An additional way to accomplish this can be found in the select-option utility function ([see section](TODO:add-link)).  
+Below is an example of how to create a select menu.
 
 ``` sh
 local items=(
@@ -202,7 +200,7 @@ This example doesn’t include full error handling for instances where a flag th
 
 Additionally, depending on your usage, the order in which you pass commands matters.
 
-For a more robust example that covers the two above scenarios, see [Run commands on multiple repos](TODO:add-link).
+For a more robust example that covers the two above scenarios, see [Run commands on multiple repositories](./commands.md#2-run-commands-on-multiple-repositories--ez-batch).
 
 ``` sh
 receive-arguments() {

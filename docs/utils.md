@@ -1,4 +1,4 @@
-# Zsh Utility Commands and Configs
+# Utility Commands and Configs
 
 This document contains some utility commands and configs that can be helpful for creating and editing your own custom Zsh commands or can be found in the commands listed on Custom Commands to Improve Workflow or this page.
 
@@ -27,9 +27,7 @@ This document contains some utility commands and configs that can be helpful for
 >   - [Check if there are unstaged changes](#check-if-there-are-unstaged-changes--_has_unstaged_changes) — `_has_unstaged_changes`
 >   - [Check if a flag has an argument](#check-if-a-flag-has-an-argument--_has_flag_arg) — `_has_flag_arg`
 >   - [Get an argument for a flag](#get-an-argument-for-a-flag--_get_flag_arg) — `_get_flag_arg`
-> - **Miscellaneous**
->   - [Change directory to specific repository](#change-directory-to-specific-repository--ez) — `ez`
->   - [Run commands on multiple repositories](#run-commands-on-multiple-brands--ez-batch) — `ez-batch`
+
 
 ## Open `.zshrc` file in code editor — `edit-zsh`
 
@@ -53,7 +51,7 @@ There's a fun extension of the above command for _Star Wars_ fans: `execute-orde
 
 These are values for starting and stopping certain text styles or adding an indent inside a print message.
 
-For additional information on adding styles to your print messages, [Common Code Snippets > Modify text styling](TODO:add-link) goes into more detail.
+For additional information on adding styles to your print messages, [Common Code Snippets > Modify text styling](./zsh.md#2-modify-text-styling) goes into more detail.
 
 ## Add space between outputs — `_add_space`
 
@@ -164,104 +162,3 @@ The use of `_add_space` before and after messages is to allow for proper spacing
 ## Check if a flag has an argument — `_has_flag_arg`
 
 ## Get an argument for a flag — `_get_flag_arg`
-
-## Change directory to specific repository — `ez`
-
-``` sh
-ez <repo>
-```
-
-`<repo>`
-The repository name you want to navigate to.
-`ez awesome-repo`
-
-## Run commands on multiple brands — `ez-batch`
-
-```
-ez-batch [--repos <repos>] [<commands>]
-```
-
-`--repos <repos>`
-Use <repos> to specify the brands you want to loop through. Should be passed as a stringed array.
-`ez-batch --repos "${repos}"`
-`ez-batch --repos "awesome-repo cool-repo"`
-
-`<commands>`
-The command or commands to run on each brand. When chaining commands, pass as a string.
-`ez-batch yarn install`
-`ez-batch "yarn install && yarn build"`
-
-#### Command breakdown, configuration and usage
-
-For flexibility in the terminal and in custom commands, we want to allow the arguments passed to this command to be placed in any order (excluding a flagged argument). This is why we add to commands in the while loop to capture the arguments that don’t belong to the `--repos` flag.
-
-
-If you need to pass a quoted string as part of a command to run in each of your repositories, you need to wrap it in single quotes (or vice versa) to ensure it stays quoted.
-
-✅ Correct
-``` sh
-ez-batch git commit -m '"commit message"'
-ez-batch git commit -m "'commit message'"
-```
-Would run `git commit -m "commit message"` in each repository.
-
-❌ Incorrect
-``` sh
-ez-batch git commit -m "commit message"
-ez-batch git commit -m 'commit message'
-```
-Would run `git commit -m commit message` in each repository.
-
-
-There are two configuration options inside the function that you can update depending on your needs.
-
-`default_repos`
-**location:** `line 2`
-**default:** `$DEFAULT_REPOS`
-
-An array of repositories (using their GitHub/folder names) that defines which repositories to run the passed commands on.
-
-`verify`
-**location:** line 5
-**default:** true
-
-This determines whether you get asked a yes/no question before looping through the repositories and executing the passed commands. The question provides you with the computed commands and list of repositories.
-
-This variable is set to true by default to help users who are new to this command from accidentally doing something they didn’t mean to.
-
-#### Example Usages
-
-Below are some examples of how you can use this command. Anywhere you see the repositories variable used, it’s expected that you’ve previously defined it like `DEFAULT_REPOS`.
-
-``` sh
-# loops through default brands
-ez-batch
-# loops through passed brands
-ez-batch --brands "${brands}"
-# loops through default brands
-# runs a single command in each brand
-ez-batch ez-build
-ez-batch yarn install
-ez-batch git commit -m '"XYZ-ticket brief description"'
-# loops through default brands
-# runs multiple commands in each brand
-ez-batch "yarn install && yarn build"
-ez-batch "ez-build && ez-changelog 'brief description' 'XYZ-test-ticket'"
-ez-batch 'git add . && git commit -m "XYZ-ticket brief description"'
-# loops through passed brands
-# runs a single command in each brand
-ez-batch --brands "${brands}" ez-build
-ez-batch --brands "${brands}" yarn install
-ez-batch --brands "${brands}" git commit -m '"XYZ-ticket brief description"'
-ez-batch ez-build --brands "${brands}"
-ez-batch yarn install --brands "${brands}"
-ez-batch git commit -m '"XYZ-ticket brief description"' --brands "${brands}"
-# loops through passed brands
-# runs multiple commands in each brand
-ez-batch --brands "${brands}" "yarn install && yarn build"
-ez-batch --brands "${brands}" "ez-build && ez-changelog 'brief description' 'XYZ-test-ticket'"
-ez-batch --brands "${brands}" 'git add . && git commit -m "XYZ-ticket brief description"'
-ez-batch "yarn install && yarn build" --brands "${brands}"
-ez-batch "ez-build && ez-changelog 'brief description' 'XYZ-test-ticket'" --brands "${brands}"
-ez-batch 'git add . && git commit -m "XYZ-ticket brief description"' --brands "${brands}"
-```

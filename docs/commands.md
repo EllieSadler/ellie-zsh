@@ -1,21 +1,119 @@
-# Custom Zsh Commands to Improve Workflow
+# Commands to Improve Workflow
 
 > #### Table of Contents
 > 
-> 1. [Run commands on multiple repositories](#1-run-commands-on-multiple-repositories--ez-batch) — `ez-batch`
-> 2. [Switch branches (or create new branch)](#2-switch-branches-or-create-new-branch--ez-branch) — `ez-branch`
-> 3. [Run through the full merge flow](#3-run-through-the-full-merge-flow--ez-merge) — `ez-merge`
-> 4. [Run through commit process](#4-run-through-commit-process--ez-commit) — `ez-commit`
-> 5. [Run through push process](#5-run-through-push-process--ez-push) — `ez-push`
-> 6. [Open pull request link](#6-open-pull-request-link--ez-pr) — `ez-pr`
-> 7. [Run through commit, push, and pull request processes](#7-run-through-commit-push-and-pull-request-processes--ez-super-duper) — `ez-super-duper`
-> 8. [Switch between ticket/update workflows](#8-switch-between-ticketupdate-workflows--ez-ticket) — `ez-ticket`
+> 1. [Change directory to specific repository](#1-change-directory-to-specific-repository--ez) — `ez`
+> 2. [Run commands on multiple repositories](#2-run-commands-on-multiple-repositories--ez-batch) — `ez-batch`
+> 3. [Switch branches (or create new branch)](#3-switch-branches-or-create-new-branch--ez-branch) — `ez-branch`
+> 4. [Run through the full merge flow](#4-run-through-the-full-merge-flow--ez-merge) — `ez-merge`
+> 5. [Run through commit process](#5-run-through-commit-process--ez-commit) — `ez-commit`
+> 6. [Run through push process](#6-run-through-push-process--ez-push) — `ez-push`
+> 7. [Open pull request link](#7-open-pull-request-link--ez-pr) — `ez-pr`
+> 8. [Run through commit, push, and pull request processes](#8-run-through-commit-push-and-pull-request-processes--ez-super-duper) — `ez-super-duper`
+> 9. [Switch between ticket/update workflows](#9-switch-between-ticketupdate-workflows--ez-ticket) — `ez-ticket`
 
-## 1. Run commands on multiple repositories — `ez-batch`
+## 1. Change directory to specific repository — `ez`
 
-Reference the [Run commands on multiple repositories section](TODO:add-link) for the code and documentation on the `ez-batch` command that allows you to run one or more commands on multiple repositories.
+``` sh
+ez <repo>
+```
 
-## 2. Switch branches (or create new branch) — `ez-branch`
+`<repo>`
+The repository name you want to navigate to.
+`ez awesome-repo`
+
+## 2. Run commands on multiple repositories — `ez-batch`
+
+```
+ez-batch [--repos <repos>] [<commands>]
+```
+
+`--repos <repos>`
+Use <repos> to specify the brands you want to loop through. Should be passed as a stringed array.
+`ez-batch --repos "${repos}"`
+`ez-batch --repos "awesome-repo cool-repo"`
+
+`<commands>`
+The command or commands to run on each brand. When chaining commands, pass as a string.
+`ez-batch yarn install`
+`ez-batch "yarn install && yarn build"`
+
+#### Command breakdown, configuration and usage
+
+For flexibility in the terminal and in custom commands, we want to allow the arguments passed to this command to be placed in any order (excluding a flagged argument). This is why we add to commands in the while loop to capture the arguments that don’t belong to the `--repos` flag.
+
+
+If you need to pass a quoted string as part of a command to run in each of your repositories, you need to wrap it in single quotes (or vice versa) to ensure it stays quoted.
+
+✅ Correct
+``` sh
+ez-batch git commit -m '"commit message"'
+ez-batch git commit -m "'commit message'"
+```
+Would run `git commit -m "commit message"` in each repository.
+
+❌ Incorrect
+``` sh
+ez-batch git commit -m "commit message"
+ez-batch git commit -m 'commit message'
+```
+Would run `git commit -m commit message` in each repository.
+
+
+There are two configuration options inside the function that you can update depending on your needs.
+
+`default_repos`
+**location:** `line 2`
+**default:** `$DEFAULT_REPOS`
+
+An array of repositories (using their GitHub/folder names) that defines which repositories to run the passed commands on.
+
+`verify`
+**location:** line 5
+**default:** true
+
+This determines whether you get asked a yes/no question before looping through the repositories and executing the passed commands. The question provides you with the computed commands and list of repositories.
+
+This variable is set to true by default to help users who are new to this command from accidentally doing something they didn’t mean to.
+
+#### Example Usages
+
+Below are some examples of how you can use this command. Anywhere you see the repositories variable used, it’s expected that you’ve previously defined it like `DEFAULT_REPOS`.
+
+``` sh
+# loops through default brands
+ez-batch
+# loops through passed brands
+ez-batch --brands "${brands}"
+# loops through default brands
+# runs a single command in each brand
+ez-batch ez-build
+ez-batch yarn install
+ez-batch git commit -m '"XYZ-ticket brief description"'
+# loops through default brands
+# runs multiple commands in each brand
+ez-batch "yarn install && yarn build"
+ez-batch "ez-build && ez-changelog 'brief description' 'XYZ-test-ticket'"
+ez-batch 'git add . && git commit -m "XYZ-ticket brief description"'
+# loops through passed brands
+# runs a single command in each brand
+ez-batch --brands "${brands}" ez-build
+ez-batch --brands "${brands}" yarn install
+ez-batch --brands "${brands}" git commit -m '"XYZ-ticket brief description"'
+ez-batch ez-build --brands "${brands}"
+ez-batch yarn install --brands "${brands}"
+ez-batch git commit -m '"XYZ-ticket brief description"' --brands "${brands}"
+# loops through passed brands
+# runs multiple commands in each brand
+ez-batch --brands "${brands}" "yarn install && yarn build"
+ez-batch --brands "${brands}" "ez-build && ez-changelog 'brief description' 'XYZ-test-ticket'"
+ez-batch --brands "${brands}" 'git add . && git commit -m "XYZ-ticket brief description"'
+ez-batch "yarn install && yarn build" --brands "${brands}"
+ez-batch "ez-build && ez-changelog 'brief description' 'XYZ-test-ticket'" --brands "${brands}"
+ez-batch 'git add . && git commit -m "XYZ-ticket brief description"' --brands "${brands}"
+```
+
+## 3. Switch branches (or create new branch) — `ez-branch`
 
 This command is used to switch to a different branch. It contains logic to silently abort if already on branch, create a new branch, and to switch to a parent branch if specified before creating a new branch.
 
@@ -31,7 +129,7 @@ Use `<branch>` to specify the branch you want to switch to.
 If you provide a parent branch (and the branch you specified does not already exist), it will checkout and pull from that branch before creating your new branch.
 `ez-branch feature/XYZ-123-ticket release/1.2.3`
 
-## 3. Run through the full merge flow — `ez-merge`
+## 4. Run through the full merge flow — `ez-merge`
 
 This command runs through the full flow needed to handle a merge on the current branch and repository you’re on. This includes fetching and merging the remote branch into your local branch, waiting while you resolve any conflicts, allowing you to choose to run `yarn install` and/or `yarn build` if initial commit fails, staging all changes made, committing with a predefined message, and pushing all commits.
 
@@ -59,7 +157,7 @@ Specifies the branch you plan to merge into your current or specified branch.
 If you provide a branch name, it will checkout that branch before pulling from the remote and starting the merge process.
 `ez-pr-conflict master feature/XYZ-123-ticket`
 
-## 4. Run through commit process — `ez-commit`
+## 5. Run through commit process — `ez-commit`
 
 This command is used to go through the commit process. This could include showing you the current git status, staging changes, switching branches, and entering the commit message.
 
@@ -86,7 +184,7 @@ This is currently set to false which includes a step during the commit process t
 This determines whether you get asked a yes/no question before continuing with the commit process. The question provides you with the repository name. This step is most helpful when running this command on a list of repositories where you may not want to go through the full process on every repository (`ez-batch` or `ez-ticket` for example).
 This variable is set to `false` by default to provide an early out, but you can set this to `true` on `line 5` in order to skip this check.
 
-## 5. Run through push process — `ez-push`
+## 6. Run through push process — `ez-push`
 
 This command is used to go through the push process. This could include switching branches before pushing to a new or existing remote branch.
 
@@ -98,7 +196,7 @@ ez-push [-s|--skip-check]
 When present, it skips the initial check to see if you want to move forward in the push process for the current repository and skips the option to verify and switch branches while in the command. This can be applied by default by updating skip_check on line 4 to true.
 `ez-push --skip-check`
 
-## 6. Open pull request link — `ez-pr`
+## 7. Open pull request link — `ez-pr`
 
 This command is used to assemble a pull request URL and open it in your browser. This works for creating a new pull request or viewing existing pull requests for the current repository.
 
@@ -112,7 +210,7 @@ If you provide a parent branch, it will use this information when assembling the
 
 `-b|--batch`
 Make `pr_type` initial response available in the future. Useful when performing this function on several repositories at once.
-> Warning Note: to reset the value, you need to open a new window/tab or restart your terminal (see [apply .zshrc changes custom command](TODO:add-link)).
+> Warning Note: to reset the value, you need to open a new window/tab or restart your terminal (see [apply .zshrc changes custom command](./utils.md#apply-zshrc-changes--ez-reload)).
 `ez-pr -b`
 
 #### Command breakdown, configuration and usage
@@ -125,7 +223,7 @@ There is one configuration option inside this function that you can update depen
 
 A string that defines your GitHub username. If present and not empty, this updates the URL when choosing to view existing pull requests; it will result in a URL for all of your open pull requests for that repository.
 
-## 7. Run through commit, push, and pull request processes — `ez-super-duper`
+## 8. Run through commit, push, and pull request processes — `ez-super-duper`
 
 This command is used to run the above commands to commit, push, and open a pull request link. By default, it skips the checks on `ez-push` since you will have previously verified you’re on the correct branch and plan to go through with the push process since you’re running this command. It also passes the parent branch name to the `ez-pr` command if it’s passed to this command.
 
@@ -141,7 +239,7 @@ If you provide a parent branch, it will use this information when assembling the
 When present, it adds the `--batch` flag to `ez-commit`. This flag is useful inside other commands like `ez-ticket` that switches each repository to the specified branch before running any commands.
 `ez-super-duper --batch`
 
-## 8. Switch between ticket/update workflows — `ez-ticket`
+## 9. Switch between ticket/update workflows — `ez-ticket`
 
 This command is used to quickly and easily start or switch to working on a different ticket or update.
 
@@ -217,7 +315,7 @@ Specifies what the parent branch name is for all repositories for the ticket/upd
     - open new terminal window
     - `source ~/.zshrc`
     - `exec zsh`
-    - `reload` ([see section](TODO:add-link))
+    - `ez-reload` ([see section](./utils.md#apply-zshrc-changes--ez-reload))
 
 You can now use your new `ez-ticket` command!
 
